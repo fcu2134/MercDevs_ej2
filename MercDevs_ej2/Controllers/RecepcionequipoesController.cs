@@ -32,12 +32,21 @@ namespace MercDevs_ej2.Controllers
                 .Include(r => r.IdServicioNavigation)
                 .Where(u => u.IdCliente == id);
 
-
-
-          
-
             return View(await recepcionEquipo.ToListAsync());
         }
+        public async Task<IActionResult> ActualizarEstado(int id)
+        {
+            var equipo = await _context.Recepcionequipos.FindAsync(id);
+            if (equipo != null)
+            {
+                equipo.Estado = "Finalizar";
+                _context.Update(equipo);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
         // GET: Recepcionequipoes
         public async Task<IActionResult> Index()
         {

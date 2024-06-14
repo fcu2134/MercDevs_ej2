@@ -6,7 +6,7 @@
 
 <h1>Index Recepcion De equipos</h1>
 
-@if (Model != null )
+@if (Model != null)
 {
     <table class="table">
         <thead>
@@ -22,13 +22,12 @@
                 <th>Cap Almacenamiento</th>
                 <th>Tipo GPU</th>
                 <th>Gráfico</th>
-               
                 <th>Servicio</th>
-        
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-              @foreach (var item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.Fecha</td>
@@ -43,8 +42,13 @@
                     <td>@item.TipoGpu</td>
                     <td>@item.Grafico</td>
                     <td><a asp-controller="Servicios" asp-action="Details" asp-route-id="@item.IdCliente">@item.IdServicioNavigation.Nombre</a></td>
-                 
-                  
+                    <td>
+                        @using (Html.BeginForm("ActualizarEstado", "Recepcionequipoes", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", item.Id)
+                            <button type="submit" class="btn btn-primary">Recepción del Equipo</button>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
